@@ -1,0 +1,11 @@
+<%- include('./partials/header') %>
+    <form action="/owners/products/edit/<%= product._id %>" method="post" enctype="multipart/form-data">
+        <div class="grid grid-cols-6 gap-4 p-4">
+            <input class="border p-2 rounded w-full" type="text" name="name" value="<%= product.name %>" required>
+            <input class="border p-2 rounded w-full" type="number" name="price" value="<%= product.price %>" required>
+            <input class="border p-2 rounded w-full" type="file" name="image">
+            <button class="m-1 text-white text-md  py-2 rounded-md bg-blue-500" type="submit">Update Product</button>
+        </div>
+
+    </form>
+    <%- include('./partials/footer') %>
