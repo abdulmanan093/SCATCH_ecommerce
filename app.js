@@ -26,7 +26,12 @@ app.use(
   })
 );
 app.use(flash());
-app.set('views', path.join(__dirname, 'views'));
+app.use((req, res, next) => {
+  res.locals.error = req.flash("error");
+  res.locals.success = req.flash("success");
+  next();
+});
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use("/", indexRouter);

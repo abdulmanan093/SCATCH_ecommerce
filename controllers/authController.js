@@ -4,30 +4,31 @@ const { generateToken } = require("../utils/generateToken");
 
 module.exports.registerUser = async (req, res) => {
   try {
-    let { fullname, email, password } = req.body;
+    const { fullname, email, password } = req.body;
 
-    let user = await userModel.findOne({ email: email });
-    if (user) {
-      res.flash("error", "You already have account, please login");
+    const userExists = await userModel.findOne({ email });
+    if (userExists) {
+      req.flash("error", "You already have an account, please login");
       return res.redirect("/");
     }
 
-    bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(password, salt, async (err, hash) => {
-        if (err) return res.send(err.message);
-        else {
-          let user = await userModel.create({
-            fullname,
-            email,
-            password: hash,
-          });
-          let token = generateToken(user);
-          res.cookie("token", token);
-        }
-      });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    await userModel.create({
+      fullname,
+      email,
+      password: hashedPassword,
     });
+
+    req.flash(
+      "success",
+      "Your account has been created successfully. Please login."
+    );
+    return res.redirect("/"); // Redirect to the login page
   } catch (err) {
-    res.send(err.message);
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 };
 
@@ -56,4 +57,3 @@ module.exports.logout = (req, res) => {
   res.cookie("token", "");
   res.redirect("/");
 };
-
