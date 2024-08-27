@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
+const debug = require("debug")("development:mongoose");
 
-const mongo_URI = process.env.MONGO_CONN;
+const dbURI = process.env.MONGO_CONN;
 
 mongoose
-  .connect(mongo_URI)
-  .then(function () {
-    console.log("connected");
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    debug("Connected to MongoDB Atlas");
   })
-  .catch(function (err) {
-    console.log(err);
+  .catch(err => {
+    console.error("Error connecting to MongoDB Atlas:", err);
   });
 
 module.exports = mongoose.connection;
