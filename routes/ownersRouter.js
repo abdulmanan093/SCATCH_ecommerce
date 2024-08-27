@@ -4,7 +4,7 @@ const ownerModel = require("../models/owner-model");
 const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
 
-if (process.env.Node_ENV === "development") {
+if (process.env.Node_ENV === "production") {
   router.post("/create", async (req, res) => {
     let owners = await ownerModel.find();
     if (owners.length > 0) {
