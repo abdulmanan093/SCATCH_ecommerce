@@ -13,7 +13,6 @@ const productsRouter = require("./routes/productsRouter");
 const usersRouter = require("./routes/usersRouter");
 const indexRouter = require("./routes/index");
 
-
 require("./config/mongoose-connection");
 
 app.use(express.json());

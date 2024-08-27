@@ -4,7 +4,6 @@ const ownerModel = require("../models/owner-model");
 const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
 
-if (process.env.Node_ENV === "production") {
   router.post("/create", async (req, res) => {
     let owners = await ownerModel.find();
     if (owners.length > 0) {
@@ -22,7 +21,6 @@ if (process.env.Node_ENV === "production") {
     });
     res.status(201).send(createdOwner);
   });
-}
 
 router.get("/admin", (req, res) => {
   let success = req.flash("success");
@@ -40,27 +38,6 @@ router.get("/products", async (req, res) => {
   }
 });
 
-// Route to handle form submission for creating a new product
-// router.post("/create", upload.single("image"), async (req, res) => {
-//   try {
-//     const { name, price, discount, bgcolor, panelcolor, textcolor } = req.body;
-//     const newProduct = new productModel({
-//       name,
-//       price,
-//       discount,
-//       bgcolor,
-//       panelcolor,
-//       textcolor,
-//       image: req.file ? req.file.buffer.toString("base64") : undefined,
-//     });
-//     await newProduct.save();
-//     req.flash("success", "Product created successfully");
-//     res.redirect("/owners/admin");
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("Server Error");
-//   }
-// });
 
 // Route to delete all products
 router.get("/products/delete", async (req, res) => {
