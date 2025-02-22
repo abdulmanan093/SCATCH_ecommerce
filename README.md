@@ -31,7 +31,7 @@ Scatch is a **full-featured eCommerce web application** built using the **MERN s
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/scatch-ecommerce.git
+git clone https://github.com/abdulmanan093/scatch-ecommerce.git
 
 # Navigate to project folder
 cd scatch-ecommerce
